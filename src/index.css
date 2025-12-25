@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply m-0 p-0 overflow-hidden;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #print-area,
+  #print-area * {
+    visibility: visible;
+  }
+
+  #print-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    /* Force 100% scale */
+    box-shadow: none !important;
+    background: white !important;
+    overflow: hidden !important;
+    z-index: 99999;
+  }
+
+  /* Hide UI elements specifically just in case */
+  button,
+  .toolbar,
+  .properties-panel,
+  .zoom-controls {
+    display: none !important;
+  }
+}
