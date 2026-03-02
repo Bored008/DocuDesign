@@ -369,7 +369,7 @@ export default function App() {
 
     const newElement = {
       id: `el-${Date.now()}`,
-      type: isShape ? 'box' : type,
+      type: type,
       x: 150,
       y: 150,
       width: elWidth,
@@ -735,7 +735,7 @@ export default function App() {
                       )
                     )}
 
-                    {el.type === 'box' && (
+                    {['box', 'circle', 'line', 'triangle', 'polygon'].includes(el.type) && (
                       <div className="w-full h-full" style={{
                         backgroundColor: el.styles?.backgroundColor || 'transparent',
                         border: `${el.styles?.borderWidth || 0}px ${el.styles?.borderStyle || 'solid'} ${el.styles?.borderColor || 'transparent'}`,

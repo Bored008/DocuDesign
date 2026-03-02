@@ -156,7 +156,7 @@ const PropertiesPanel = ({
             )}
 
             {/* Shape Styles (Colors) */}
-            {(selectedElement.type === 'box' || selectedElement.type === 'image') && (
+            {(['box', 'circle', 'line', 'triangle', 'polygon', 'image'].includes(selectedElement.type)) && (
                 <div className="space-y-6">
                     <label className="block">
                         <span className={`text-[10px] font-black mb-3 block uppercase tracking-widest ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>Fill / Tint Color</span>
@@ -169,7 +169,7 @@ const PropertiesPanel = ({
                             ].map((c) => (
                                 <button
                                     key={c}
-                                    onClick={() => updateStyles(selectedElement.id, { backgroundColor: selectedElement.type === 'box' ? c : undefined, color: selectedElement.type === 'text' ? c : undefined })}
+                                    onClick={() => updateStyles(selectedElement.id, { backgroundColor: ['box', 'circle', 'line', 'triangle', 'polygon'].includes(selectedElement.type) ? c : undefined, color: selectedElement.type === 'text' ? c : undefined })}
                                     className={`w-7 h-7 rounded-lg border transition-all hover:scale-110 shadow-sm ${selectedElement.styles.backgroundColor === c ? 'ring-2 ring-indigo-500 ring-offset-2 scale-110' : 'border-black/5 dark:border-white/5'}`}
                                     style={{ backgroundColor: c }}
                                 />
