@@ -231,7 +231,7 @@ app.post('/api/ai-scan', upload.single('image'), async (req, res) => {
         lastError = err;
         console.warn(`Model ${modelName} failed:`, err.message);
         // If it's a 404, try next. If it's a 429 (rate limit), try next model 
-        // as different models have different quotas.
+        // as different models have different quotas. 
         if (err.message.includes('404') || err.message.includes('429')) continue;
         else break;
       }
