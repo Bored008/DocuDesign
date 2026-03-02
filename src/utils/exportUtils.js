@@ -17,6 +17,7 @@ const captureElement = async (elementId) => {
             backgroundColor: '#ffffff',
             width: 794,
             height: 1123,
+            skipFonts: true, // Bypass "trim of undefined" crash in html-to-image font embedder
             style: {
                 transform: 'scale(1)'
             }
