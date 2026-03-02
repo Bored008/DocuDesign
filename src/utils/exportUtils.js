@@ -1,47 +1,34 @@
-import html2canvas from 'html2canvas';
+import { toCanvas } from 'html-to-image';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun, ImageRun } from 'docx';
 import { saveAs } from 'file-saver';
 
-// Helper to capture element at 1:1 scale regardless of screen zoom
 const captureElement = async (elementId) => {
     const original = document.getElementById(elementId);
     if (!original) return null;
 
-    // Clone the element to avoid modifying the specific live view
-    const clone = original.cloneNode(true);
+    // Temporarily reset transform for a clean 1:1 capture
+    const originalTransform = original.style.transform;
+    original.style.transform = 'scale(1)';
 
-    // Reset any scaling on the clone
-    clone.style.transform = 'none';
-    clone.style.position = 'fixed';
-    clone.style.top = '0';
-    clone.style.left = '0';
-    clone.style.zIndex = '-9999'; // Hide behind everything
-    clone.style.width = '794px'; // Force A4 width
-    clone.style.height = '1123px'; // Force A4 height
-
-    document.body.appendChild(clone);
-
-    // Wait for images in clone to load/render if needed (usually instant for clone)
     try {
-        const canvas = await html2canvas(clone, {
-            scale: 2, // 2x for Retina-like quality
-            useCORS: true,
-            allowTaint: true,
+        const canvas = await toCanvas(original, {
+            pixelRatio: 2, // 2x for high quality
             backgroundColor: '#ffffff',
-            logging: false,
             width: 794,
             height: 1123,
-            windowWidth: 794,
-            windowHeight: 1123
+            style: {
+                transform: 'scale(1)'
+            }
         });
-        document.body.removeChild(clone);
+
+        // Restore original transform
+        original.style.transform = originalTransform;
         return canvas;
     } catch (err) {
         console.error("Capture failed:", err);
-        if (document.body.contains(clone)) {
-            document.body.removeChild(clone);
-        }
+        alert("Capture error: " + (err.message || err.toString()));
+        original.style.transform = originalTransform;
         return null;
     }
 };
@@ -81,7 +68,7 @@ export const exportToPDF = async (elementId) => {
     pdf.save(`doc-design-${Date.now()}.pdf`);
 };
 
-export const exportToWord = async (elements) => {
+export const exportToWord = async () => {
     const canvas = await captureElement('print-area');
     if (!canvas) {
         alert("Failed to generate Word doc. Please try again.");
