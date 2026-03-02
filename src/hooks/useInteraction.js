@@ -275,14 +275,14 @@ export const useInteraction = (elements, canvasScale, updateElement) => {
             let newX = startPosX;
             let newY = startPosY;
 
-            if (direction.includes('e')) newW = Math.max(20, startW + dx);
+            if (direction.includes('e')) newW = Math.max(el.type === 'line' ? 2 : 20, startW + dx);
             if (direction.includes('w')) {
-                newW = Math.max(20, startW - dx);
+                newW = Math.max(el.type === 'line' ? 2 : 20, startW - dx);
                 newX = startPosX + dx;
             }
-            if (direction.includes('s')) newH = Math.max(20, startH + dy);
+            if (direction.includes('s')) newH = Math.max(el.type === 'line' ? 2 : 20, startH + dy);
             if (direction.includes('n')) {
-                newH = Math.max(20, startH - dy);
+                newH = Math.max(el.type === 'line' ? 2 : 20, startH - dy);
                 newY = startPosY + dy;
             }
 
