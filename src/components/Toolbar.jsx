@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Type, Square, Circle, Shapes as ShapesIcon, Settings, Upload, Layout, Undo2, Redo2, ChevronRight, Sparkles, Trash2 } from 'lucide-react';
+import { Type, Square, Circle, Triangle, Minus, Hexagon, Shapes as ShapesIcon, Settings, Upload, Layout, Undo2, Redo2, ChevronRight, Sparkles, Trash2 } from 'lucide-react';
 import Tooltip from './Tooltip';
 
 const Toolbar = ({
@@ -84,20 +84,41 @@ const Toolbar = ({
                 </Tooltip>
 
                 {showShapeMenu && (
-                    <div className={`absolute bottom-full mb-4 md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-[100] ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
+                    <div className={`absolute bottom-full mb-4 md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-[100] ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'} flex-wrap w-[200px] md:w-auto`}>
                         <button
                             onClick={() => { addElement('box'); setShowShapeMenu(false); }}
-                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'}`}
+                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
                         >
                             <Square size={20} strokeWidth={2.5} />
-                            <span className="text-[8px] font-black uppercase">Square</span>
+                            <span className="text-[8px] font-black uppercase hidden md:block">Square</span>
                         </button>
                         <button
                             onClick={() => { addElement('circle'); setShowShapeMenu(false); }}
-                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'}`}
+                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
                         >
                             <Circle size={20} strokeWidth={2.5} />
-                            <span className="text-[8px] font-black uppercase">Circle</span>
+                            <span className="text-[8px] font-black uppercase hidden md:block">Circle</span>
+                        </button>
+                        <button
+                            onClick={() => { addElement('line'); setShowShapeMenu(false); }}
+                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
+                        >
+                            <Minus size={20} strokeWidth={2.5} />
+                            <span className="text-[8px] font-black uppercase hidden md:block">Line</span>
+                        </button>
+                        <button
+                            onClick={() => { addElement('triangle'); setShowShapeMenu(false); }}
+                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
+                        >
+                            <Triangle size={20} strokeWidth={2.5} />
+                            <span className="text-[8px] font-black uppercase hidden md:block">Triangle</span>
+                        </button>
+                        <button
+                            onClick={() => { addElement('polygon'); setShowShapeMenu(false); }}
+                            className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
+                        >
+                            <Hexagon size={20} strokeWidth={2.5} />
+                            <span className="text-[8px] font-black uppercase hidden md:block">Polygon</span>
                         </button>
                     </div>
                 )}

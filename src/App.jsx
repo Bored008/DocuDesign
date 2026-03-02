@@ -137,7 +137,7 @@ export default function App() {
     if (confirm("Applying a layout will replace your current design. Continue?")) {
       setElements(templateElements);
       setShowTemplatesPanel(false);
-      setSelectedId(null);
+      setSelectedIds([]);
     }
   };
 
@@ -280,6 +280,25 @@ export default function App() {
     setElements(prev => prev.map(el => el.id === id ? { ...el, ...updates } : el));
   };
 
+  const handleAlign = (id, alignment) => {
+    saveToHistory();
+    setElements(prev => prev.map(el => {
+      if (el.id !== id) return el;
+      let newX = el.x;
+      let newY = el.y;
+
+      switch (alignment) {
+        case 'left': newX = 0; break;
+        case 'center': newX = (A4_WIDTH_PX - el.width) / 2; break;
+        case 'right': newX = A4_WIDTH_PX - el.width; break;
+        case 'top': newY = 0; break;
+        case 'middle': newY = (A4_HEIGHT_PX - el.height) / 2; break;
+        case 'bottom': newY = A4_HEIGHT_PX - el.height; break;
+      }
+      return { ...el, x: newX, y: newY };
+    }));
+  };
+
   const deleteElements = (ids = selectedIds) => {
     if (ids.length === 0) return;
     saveToHistory();
@@ -336,23 +355,36 @@ export default function App() {
 
   const addElement = (type, initialStyles = {}) => {
     saveToHistory();
+    const isShape = ['box', 'circle', 'line', 'triangle', 'polygon'].includes(type);
+
+    let elWidth = type === 'text' ? 300 : (type === 'line' ? 300 : 200);
+    let elHeight = type === 'text' ? 100 : (type === 'line' ? 2 : 200);
+
+    let clipPathValue = 'none';
+    if (type === 'triangle') {
+      clipPathValue = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+    } else if (type === 'polygon') {
+      clipPathValue = 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'; // Hexagon By Default
+    }
+
     const newElement = {
       id: `el-${Date.now()}`,
-      type: type === 'circle' ? 'box' : type,
+      type: isShape ? 'box' : type,
       x: 150,
       y: 150,
-      width: type === 'text' ? 300 : 200,
-      height: type === 'text' ? 100 : 200,
+      width: elWidth,
+      height: elHeight,
       content: type === 'text' ? 'Double tap to edit' : '',
       styles: {
         fontSize: 16,
         color: '#000000',
-        backgroundColor: (type === 'box' || type === 'circle') ? '#e2e8f0' : 'transparent',
+        backgroundColor: isShape && type !== 'line' ? '#e2e8f0' : (type === 'line' ? '#000000' : 'transparent'),
         textAlign: 'left',
         borderWidth: 0,
         borderColor: '#000000',
         borderRadius: type === 'circle' ? 9999 : 0,
         borderStyle: 'solid',
+        clipPath: clipPathValue,
         ...initialStyles
       }
     };
@@ -706,7 +738,8 @@ export default function App() {
                       <div className="w-full h-full" style={{
                         backgroundColor: el.styles?.backgroundColor || 'transparent',
                         border: `${el.styles?.borderWidth || 0}px ${el.styles?.borderStyle || 'solid'} ${el.styles?.borderColor || 'transparent'}`,
-                        borderRadius: `${el.styles?.borderRadius || 0}px`
+                        borderRadius: `${el.styles?.borderRadius || 0}px`,
+                        clipPath: el.styles?.clipPath || 'none'
                       }} />
                     )}
 
@@ -757,6 +790,7 @@ export default function App() {
         showMobileProps={showMobileProps}
         setShowMobileProps={setShowMobileProps}
         updateStyles={updateStyles}
+        handleAlign={handleAlign}
         theme={theme}
       />
 

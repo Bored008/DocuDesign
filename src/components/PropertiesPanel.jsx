@@ -6,6 +6,7 @@ const PropertiesPanel = ({
     showMobileProps,
     setShowMobileProps,
     updateStyles,
+    handleAlign,
     theme
 }) => {
     if (!selectedElement) {
@@ -211,6 +212,19 @@ const PropertiesPanel = ({
                         className="w-full accent-indigo-600 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-800"
                     />
                 </label>
+
+                <div className="space-y-4">
+                    <span className={`text-[10px] font-black block uppercase tracking-widest ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>Align to Page</span>
+                    <div className="grid grid-cols-3 gap-2">
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'left')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Left</button>
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'center')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Center</button>
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'right')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Right</button>
+
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'top')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Top</button>
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'middle')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Middle</button>
+                        <button onClick={() => handleAlign && handleAlign(selectedElement.id, 'bottom')} className={`py-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${theme === 'dark' ? 'border-slate-800 text-slate-400 hover:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>Bottom</button>
+                    </div>
+                </div>
 
                 <div className="space-y-4">
                     <span className={`text-[10px] font-black block uppercase tracking-widest ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>Layering</span>

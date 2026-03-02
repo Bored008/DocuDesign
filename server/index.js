@@ -123,64 +123,62 @@ app.post('/api/ai-scan', upload.single('image'), async (req, res) => {
           3. Coordinates MUST be in absolute pixels relative to ${imageWidth}x${imageHeight}.
           4. Ensure height is at least 1.4x the fontSize to cover the text fully.`;
         } else {
-          prompt = `You are a high-end Document Reconstruction Specialist. Match this document EXACTLY.
-          
-          TASK: Create a clean, perfectly aligned editable version.
-          
-          CRITICAL: MAP ALL COORDINATES TO A STANDARD A4 CANVAS (794px x 1123px).
-          - Ignore the actual resolution of the image.
-          - Assume you are redrawing this on a 794x1123 pixel canvas.
-          - Resize everything proportionally to fit this A4 size.
+          prompt = `You are a high-end Document Reconstruction Specialist. Your task is to extract all elements from the image to recreate it pixel-perfectly on an A4 canvas (794px wide by 1123px tall) in JSON format.
 
-          IMPORTANT VISUAL RULES (For A4 Size):
-          1. **NO THICK BLACK BARS**: Horizontal lines must be:
-             - "height": 2, "backgroundColor": "#000000" (for solid lines) OR
-             - "backgroundColor": "transparent", "borderBottomWidth": 1, "borderStyle": "dashed" (for dashed lines).
-          
-          2. **HEADER ALIGNMENT**: The main university title must be CENTERED on the 794px width.
-             - "textAlign": "center"
-             - Coordinate X should be approx (794 - width) / 2.
-             - Ensure it doesn't drift to the right.
+          CRITICAL RULES FOR ACCURACY:
 
-          3. **FONT SIZES (For A4 Canvas)**:
-             - Main Titles: 24px - 32px (Bold).
-             - Sub-Headings: 18px - 22px (Bold).
-             - Body Text: 12px - 14px.
-             - Footer/Labels: 10px - 11px.
-             - NOTE: These are standard web sizes that look correct on A4. Do not use 48px unless it is HUGE.
+          1. PERFECT SIZING & POSITIONING:
+             - Every element must have precise 'x' and 'y' coordinates, and accurate 'width' and 'height' for a 794x1123 canvas.
+             - Measure exactly where text is vertically (Y coordinate) to avoid overlapping.
+             - Ensure text isn't cramped; assign bounding boxes large enough to fit the text comfortably.
 
-          4. **LOGOS**:
-             - Center the logo image.
-             - Size: approx 150x150px to 200x200px.
+          2. FONT SIZES (CRUCIAL):
+             - Do NOT use tiny fonts unless the text is actually tiny. Analyze the visual hierarchy carefully.
+             - Main Titles (e.g., University Names): 24px - 32px.
+             - Subtitles / Headings (e.g., "Practical File of", "FULL STACK DEVELOPMENT"): 18px - 26px.
+             - Normal Body Text (e.g., "Submitted To", Names, Roll numbers): 14px - 18px.
+             - Fine Print (e.g., Bottom address formatting): 11px - 13px.
+             - If a font looks large and prominent in the image, it MUST have a large fontSize (e.g., 24px+) in the JSON.
 
-          5. **PAGE BORDER**:
-             - Create a page border box if visible.
-             - x: 20, y: 20, width: 754, height: 1083.
-             - "backgroundColor": "transparent", "borderWidth": 1, "borderColor": "#000000".
+          3. AVOIDING THICK BLACK BARS (CRUCIAL):
+             - You MUST NEVER create thick solid black boxes to represent thin horizontal lines.
+             - If you see a horizontal dividing line, it must be a "box" with a VERY SMALL height: "height": 1 or "height": 2, and "backgroundColor": "#000000", "width": 600 (or visually matching).
+             - NEVER make the height of a horizontal line larger than 2px.
+             - For text elements, ALWAYS use "backgroundColor": "transparent" and "color": "#000000". DO NOT give text elements a black background unless the source image explicitly has white text on a black background block.
+
+          4. ALIGNMENT & CENTERING:
+             - For text that appears centered, you MUST use "textAlign": "center" and ensure the box takes up most of the page width (e.g., width: 650, x: 72) so the centering applies correctly relative to the page.
+             - For left/right aligned blocks placed side-by-side (e.g., "Submitted To:" vs "Submitted By:"):
+               Left block: x roughly 100, width: 300, textAlign: "left".
+               Right block: x roughly 400, width: 300, textAlign: "left".
+
+          5. LOGO / IMAGES:
+             - Central logos should have type: "image", width: approx 180, height: 180, and x positioned to perfectly center it (e.g., x: 307).
+
+          6. BORDERS & SHAPES:
+             - If there is an outer page border, use type: "box", x: 20, y: 20, width: 754, height: 1083, "backgroundColor": "transparent", "borderWidth": 2, "borderColor": "#000000".
 
           JSON Schema:
           [{
             "type": "text" | "box" | "image",
-            "content": "string",
+            "content": "string" (for image use a placeholder text if needed),
             "x": number, "y": number, "width": number, "height": number,
             "styles": {
               "fontSize": number,
               "fontWeight": "bold" | "normal",
               "textAlign": "left" | "center" | "right",
-              "fontFamily": "Inter, sans-serif",
+              "fontFamily": "Times New Roman, serif",
               "color": "hex",
               "backgroundColor": "hex or transparent",
               "borderColor": "hex",
-              "borderWidth": number,
-              "borderBottomWidth": number,
-              "borderStyle": "solid" | "dashed" | "dotted"
+              "borderWidth": number
             }
           }]
 
           CRITICAL: 
-          - Return ONLY valid JSON.
-          - Ensure "backgroundColor" is "transparent" for text.
-          - Map everything to 794 x 1123 coordinates.`;
+          - Return ONLY valid JSON array.
+          - DO NOT ADD ANY MARKDOWN (NO \`\`\`json). JUST THE RAW ARRAY.
+          - Map everything accurately to 794 x 1123 coordinates.`;
         }
 
         prompt += "\n\nReturn ONLY valid JSON. No conversational text.";
