@@ -18,6 +18,7 @@ const captureElement = async (elementId) => {
             width: 794,
             height: 1123,
             skipFonts: true, // Bypass "trim of undefined" crash in html-to-image font embedder
+            filter: (node) => node.id !== 'grid-pattern', // Hide the dotted background grid
             style: {
                 transform: 'scale(1)'
             }

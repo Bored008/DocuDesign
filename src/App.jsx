@@ -632,7 +632,9 @@ export default function App() {
               }}
             >
               {/* Grid Pattern */}
-              <div className="absolute inset-0 pointer-events-none opacity-50"
+              <div
+                id="grid-pattern"
+                className="absolute inset-0 pointer-events-none opacity-50"
                 style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '40px 40px' }}
               />
 
