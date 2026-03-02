@@ -607,14 +607,15 @@ export default function App() {
           </div>
         </div>
 
-        {/* Canvas Area - CENTERED */}
-        <div className={`flex-1 overflow-auto flex items-center justify-center p-4 md:p-8 pb-32 md:pb-8 relative touch-none transition-colors ${theme === 'dark' ? 'bg-slate-950' : 'bg-slate-100'}`}>
+        {/* Canvas Area - SCROLLABLE WITHOUT CUTTING OFF CONTENT */}
+        <div className={`flex-1 overflow-auto p-4 md:p-8 pb-32 md:pb-8 relative touch-none transition-colors ${theme === 'dark' ? 'bg-slate-950' : 'bg-slate-100'}`}>
           <div
             style={{
               width: `${A4_WIDTH_PX * canvasScale}px`,
-              height: `${A4_HEIGHT_PX * canvasScale}px`
+              height: `${A4_HEIGHT_PX * canvasScale}px`,
+              margin: '0 auto' // Centers horizontally if smaller than viewport
             }}
-            className="relative transition-all duration-200 ease-out shadow-2xl shrink-0"
+            className="transition-all duration-200 ease-out shadow-2xl shrink-0 relative"
           >
             <div
               id="print-area"

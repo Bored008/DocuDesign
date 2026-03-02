@@ -62,7 +62,7 @@ const Toolbar = ({
                 </button>
             </div>
 
-            <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 md:hidden" />
+            <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 md:hidden" />
 
             <Tooltip text="Add Text">
                 <button onClick={() => addElement('text')} className={`flex flex-col items-center justify-center p-2 md:p-3 rounded-2xl transition-all duration-200 gap-1 ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-indigo-400' : 'text-slate-600 hover:bg-indigo-50 hover:text-indigo-600'}`}>
@@ -84,7 +84,7 @@ const Toolbar = ({
                 </Tooltip>
 
                 {showShapeMenu && (
-                    <div className={`absolute bottom-full mb-4 md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-[100] ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'} flex-wrap w-[200px] md:w-auto`}>
+                    <div className={`absolute bottom-full mb-4 md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-100 ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'} flex-wrap w-[200px] md:w-auto`}>
                         <button
                             onClick={() => { addElement('box'); setShowShapeMenu(false); }}
                             className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'} w-1/4 md:w-full`}
@@ -144,7 +144,7 @@ const Toolbar = ({
                 </Tooltip>
 
                 {showUploadMenu && (
-                    <div className={`absolute bottom-full mb-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:bg-transparent md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-[100] ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
+                    <div className={`absolute bottom-full mb-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:bg-transparent md:bottom-0 md:left-full md:mb-0 md:ml-4 p-2 rounded-3xl shadow-2xl border flex flex-row md:flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 md:slide-in-from-left-4 duration-200 z-100 ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-100'}`}>
                         <label className={`cursor-pointer flex flex-col items-center gap-1.5 p-3 rounded-2xl w-20 md:w-24 transition-all ${theme === 'dark' ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-50 hover:text-indigo-600'}`}>
                             <Upload size={20} strokeWidth={2.5} />
                             <span className="text-[8px] font-black uppercase text-center w-full">Image</span>
