@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FAQ.css';
+
 import questionMark from '../assets/question-mark.png';
 import expandArrow from '../assets/expand-arrow.png';
 
@@ -34,35 +34,35 @@ const FAQ = () => {
     };
 
     return (
-        <div className="faq-container">
-            <div className="faq-left">
-                <div className="faq-header-container">
-                    <h2 className="faq-title">Got Questions</h2>
-                    <img src={questionMark} alt="Question Mark" className="faq-question-icon" />
+        <div className="w-[1260px] mx-auto mb-[120px] flex justify-between items-start text-white relative z-10">
+            <div className="w-[410px] flex flex-col">
+                <div className="flex items-center relative h-[100px]">
+                    <h2 className="font-['Gilroy-Black','Impact',sans-serif] font-normal text-[48px] leading-[1.26] m-0 w-[319px]">Got Questions</h2>
+                    <img src={questionMark} alt="Question Mark" className="absolute w-[100px] h-[100px] right-[-9px] top-0 object-contain" />
                 </div>
-                <p className="faq-subtitle">
+                <p className="mt-[10px] font-[Geist,'Poppins',sans-serif] font-normal text-[24px] leading-[1.65] text-white/78">
                     Here are some common questions along with their answers to help clear up any confusion.
                 </p>
             </div>
 
-            <div className="faq-right">
+            <div className="w-[804px] flex flex-col gap-[24px]">
                 {faqData.map((faq) => (
                     <div
                         key={faq.id}
-                        className={`faq-item ${openId === faq.id ? 'faq-item-open' : ''}`}
+                        className={`bg-[#C7D2ED]/35 rounded-[11px] shadow-[0px_5px_4px_0px_rgba(255,255,255,0.45)] px-[13px] pt-[12px] transition-all duration-300 ease-in-out cursor-pointer overflow-hidden ${openId === faq.id ? 'pb-[12px]' : 'pb-[12px]'}`}
                         onClick={() => toggleFaq(faq.id)}
                     >
-                        <div className="faq-item-header">
-                            <span className="faq-question-text">{faq.question}</span>
+                        <div className="flex justify-between items-center min-h-[40px]">
+                            <span className="font-[Geist,'Poppins',sans-serif] font-normal text-[24px] leading-[1.65] m-0">{faq.question}</span>
                             <img
                                 src={expandArrow}
                                 alt="Expand"
-                                className={`faq-expand-icon ${openId === faq.id ? 'rotated' : ''}`}
+                                className={`w-[30px] h-[30px] object-contain transition-transform duration-300 ease-in-out ${openId === faq.id ? 'rotate-180' : ''}`}
                             />
                         </div>
                         {openId === faq.id && (
-                            <div className="faq-item-body">
-                                <p className="faq-answer-text">{faq.answer}</p>
+                            <div className="mt-[4px] w-[630.54px]">
+                                <p className="font-[Geist,'Poppins',sans-serif] font-normal text-[20px] leading-[1.65] text-white/75 m-0">{faq.answer}</p>
                             </div>
                         )}
                     </div>
