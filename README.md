@@ -84,6 +84,11 @@ Example (update if needed):
 * HTML
 * CSS / TailwindCSS
 * JavaScript
+* React
+* Nodejs
+* Expressjs
+* MongoDB
+* Generative-ai
 * Local Storage API
 * Canvas based editing system
 
@@ -110,9 +115,15 @@ open index.html
 ```
 
 Or use a local server.
+Npm run dev (in main folder)
 
-Example with VS Code Live Server.
+then, once more
+npm run dev (in cd server)
 
+Pre-requisite to run to server -
+Generate a api key and put that key in .env file
+
+Enjoy, U are all set to use DocDesign
 ---
 
 ## Future Improvements
