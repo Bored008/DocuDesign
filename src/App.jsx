@@ -521,7 +521,7 @@ export default function App() {
         {/* Top Bar */}
         <div className={`h-14 md:h-16 border-b flex items-center justify-between px-3 md:px-8 shadow-sm z-20 shrink-0 transition-colors ${theme === 'dark' ? 'bg-slate-900/50 border-slate-800 backdrop-blur-md' : 'bg-white border-slate-200'}`}>
           <div className="flex items-center gap-2 md:gap-6">
-            <h1 className="font-bold text-sm md:text-xl tracking-tight truncate max-w-[100px] md:max-w-none">DocuDesign</h1>
+            <h1 className="font-bold text-sm md:text-xl tracking-tight truncate max-w-[100px] md:max-w-none">DOCDESIGN</h1>
             <div className={`hidden md:flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${theme === 'dark' ? 'bg-slate-800 text-slate-400' : 'bg-slate-100 text-slate-500'}`}>
               <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               Canvas Active
