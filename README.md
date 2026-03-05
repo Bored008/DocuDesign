@@ -14,14 +14,6 @@ The tool is designed to be simple, fast, and usable locally without storing user
 ![Docdesign~2](https://github.com/user-attachments/assets/8e37f838-6747-45f5-9443-628038c1fce0)
 ![Docdesign~3](https://github.com/user-attachments/assets/82fe30df-1c4c-4633-a4fe-57add0512564)
 ![Docdesign~4](https://github.com/user-attachments/assets/82a6371a-2474-4cc3-b3a6-746f7abc1b4d)
-```
-
-Recommended screenshots:
-
-* Landing page
-* Document editor interface
-* Features section
-* Export functionality
 
 ---
 
