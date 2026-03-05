@@ -135,7 +135,7 @@ Example with VS Code Live Server.
 
 ## Author
 
-Developed and designed by Bore.
+Developed and designed by Bored.
 
 If you found this project useful, feel free to star the repository.
 
