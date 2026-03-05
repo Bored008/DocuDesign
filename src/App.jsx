@@ -23,6 +23,7 @@ import { useScale } from './hooks/useScale';
 import { useInteraction } from './hooks/useInteraction';
 
 import { exportToPDF, exportToImage, exportToWord } from './utils/exportUtils';
+import LandingPage from './landingpage/LandingPage';
 
 const API_BASE = 'http://localhost:5000/api';
 
@@ -77,6 +78,7 @@ export default function App() {
   const [designId, setDesignId] = useState(() => localStorage.getItem('design_id') || null);
   const [lastSaved, setLastSaved] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [showLandingPage, setShowLandingPage] = useState(true);
   const [canvasScale, setCanvasScale] = useScale(A4_WIDTH_PX, A4_HEIGHT_PX);
   const [zoomInputValue, setZoomInputValue] = useState(Math.round(canvasScale * 100));
 
@@ -483,6 +485,10 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [elements, selectedIds]);
+
+  if (showLandingPage) {
+    return <LandingPage onGoToEditor={() => setShowLandingPage(false)} />;
+  }
 
   return (
     <div
